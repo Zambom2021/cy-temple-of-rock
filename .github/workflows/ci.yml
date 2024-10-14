@@ -9,17 +9,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      web:
-        image: minha-aplicacao:latest
-        ports:
-          - 9090:9090
-        options: >-
-          --health-cmd "curl --fail http://localhost:9090 || exit 1"
-          --health-interval 30s
-          --health-timeout 10s
-          --health-retries 3
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,7 +20,7 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 9090:9090 --name temple-of-rock-backend minha-aplicacao
-  
+
       - name: Wait for application to be ready
         run: |
           sleep 10 # Ajuste esse tempo se necessário
@@ -45,5 +34,5 @@ jobs:
 
       - name: Stop and remove Docker container
         run: |
-          docker stop my-running-app
-          docker rm my-running-app
+          docker stop temple-of-rock-backend
+          docker rm temple-of-rock-backend
