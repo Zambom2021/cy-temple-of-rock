@@ -16,10 +16,10 @@ jobs:
         run: npm install
 
       - name: Iniciar servidor local
-        run: npm start &  # Inicia o servidor em segundo plano
+        run: npm start &  # Certifique-se que o script "start" foi definido no package.json
 
       - name: Esperar o servidor iniciar
-        run: npx wait-on http://localhost:9090/web # Espera até que o servidor esteja acessível
+        run: npx wait-on http://localhost:9090/web
 
       - name: Executar Cypress
         run: npx cypress run --browser chrome --headless
