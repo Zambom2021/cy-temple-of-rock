@@ -28,7 +28,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm start --prefix ../Projeto_Rick_1/temple-of-rock/backend # Inicia o servidor a partir do diretório backend
+          start: npm start --prefix ../Projeto_Rick_1/temple-of-rock/backend # Especifica o caminho correto para o package.json
           wait-on: 'http://localhost:9090/web' # A URL do seu servidor
           wait-on-timeout: 60 # Tempo máximo para aguardar a conexão
 
