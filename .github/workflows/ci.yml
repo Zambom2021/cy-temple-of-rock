@@ -15,7 +15,7 @@ jobs:
 
       - name: Set working directory
         run: |
-          cd backend # Certifique-se de que este é o diretório correto
+          cd temple-of-rock/backend # Altere para o caminho correto
 
       - name: Build Docker image
         run: |
