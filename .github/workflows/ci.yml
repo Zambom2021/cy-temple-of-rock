@@ -13,6 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set working directory
+        run: |
+          cd backend # Certifique-se de que este é o diretório correto
+
       - name: Build Docker image
         run: |
           docker build -t minha-aplicacao .

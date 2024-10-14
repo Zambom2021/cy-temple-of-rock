@@ -4,7 +4,7 @@ FROM node:16
 # Crie e defina o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copie os arquivos de dependências da sua aplicação
+# Copie os arquivos de dependências da sua aplicação (package.json e package-lock.json)
 COPY package*.json ./
 
 # Instale as dependências da aplicação
