@@ -1,25 +1,49 @@
-name: End-to-end tests
-on: push
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  cypress-run:
-    runs-on: ubuntu-22.04
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      web:
+        image: minha-aplicacao:latest
+        ports:
+          - 9090:9090
+        options: >-
+          --health-cmd "curl --fail http://localhost:9090 || exit 1"
+          --health-interval 30s
+          --health-timeout 10s
+          --health-retries 3
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Build Docker image
+        run: |
+          docker build -t minha-aplicacao .
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 9090:9090 --name my-running-app minha-aplicacao
+
+      - name: Wait for application to be ready
+        run: |
+          sleep 10 # Ajuste esse tempo se necessário
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
         with:
-          node-version: '16'
+          start: npm start # Comando para iniciar seu servidor
+          wait-on: 'http://localhost:9090' # A URL do seu servidor
+          wait-on-timeout: 60 # Tempo máximo para aguardar a conexão
 
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Iniciar servidor local
-        run: npm start &  # Certifique-se que o script "start" foi definido no package.json
-
-      - name: Esperar o servidor iniciar
-        run: npx wait-on http://localhost:9090/web
-
-      - name: Executar Cypress
-        run: npx cypress run --browser chrome --headless
+      - name: Stop and remove Docker container
+        run: |
+          docker stop my-running-app
+          docker rm my-running-app
