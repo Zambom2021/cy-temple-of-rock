@@ -15,11 +15,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t minha-aplicacao -f Dockerfile ./ # Constrói a imagem a partir do Dockerfile na raiz
+          docker build -t minha_aplicacao -f Dockerfile ./
 
       - name: Run Docker container
         run: |
-          docker run -d -p 9090:9090 --name temple-of-rock-backend minha-aplicacao
+          docker run -d -p 9090:9090 --name temple-of-rock-backend minha_aplicacao
 
       - name: Wait for application to be ready
         run: |
@@ -28,7 +28,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm start --prefix backend # Inicia o servidor no diretório backend
+          start: npm start --prefix backend # Inicia o servidor a partir do diretório backend
           wait-on: 'http://localhost:9090' # A URL do seu servidor
           wait-on-timeout: 60 # Tempo máximo para aguardar a conexão
 
