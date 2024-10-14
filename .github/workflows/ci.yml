@@ -13,13 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set working directory
-        run: |
-          cd temple-of-rock/backend # Altere para o caminho correto
-
       - name: Build Docker image
         run: |
-          docker build -t minha-aplicacao .
+          docker build -t minha-aplicacao -f Dockerfile ./ # Constrói a imagem a partir do Dockerfile na raiz
 
       - name: Run Docker container
         run: |
@@ -32,7 +28,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm start # Comando para iniciar seu servidor
+          start: npm start --prefix backend # Inicia o servidor no diretório backend
           wait-on: 'http://localhost:9090' # A URL do seu servidor
           wait-on-timeout: 60 # Tempo máximo para aguardar a conexão
 
