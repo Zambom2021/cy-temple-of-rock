@@ -6,6 +6,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Defina a versão do Node.js
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Iniciar servidor local
+        run: npm start & # Executa o servidor da aplicação em segundo plano
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        
+        with:
+          browser: chrome # Defina o navegador (chrome ou firefox)
+
