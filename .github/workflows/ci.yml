@@ -10,16 +10,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Defina a versão do Node.js
+          node-version: '16'
 
       - name: Instalar dependências
         run: npm install
 
       - name: Iniciar servidor local
-        run: npm start & # Executa o servidor da aplicação em segundo plano
+        run: npm start &  # Inicia o servidor em segundo plano
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome # Defina o navegador (chrome ou firefox)
+      - name: Esperar o servidor iniciar
+        run: npx wait-on http://localhost:9090/web # Espera até que o servidor esteja acessível
 
+      - name: Executar Cypress
+        run: npx cypress run --browser chrome --headless
