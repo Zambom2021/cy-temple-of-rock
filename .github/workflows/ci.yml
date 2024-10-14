@@ -30,8 +30,8 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker run -d -p 9090:9090 --name my-running-app minha-aplicacao
-
+          docker run -d -p 9090:9090 --name temple-of-rock-backend minha-aplicacao
+  
       - name: Wait for application to be ready
         run: |
           sleep 10 # Ajuste esse tempo se necessário
