@@ -5,13 +5,13 @@ FROM node:16
 WORKDIR /app
 
 # Copie os arquivos de dependências da sua aplicação
-COPY ./backend/package*.json ./
+COPY ../Projeto_Rick_1/temple-of-rock/backend/package*.json ./
 
 # Instale as dependências da aplicação
 RUN npm install
 
 # Copie todo o código da aplicação para o diretório de trabalho no container
-COPY ./backend ./
+COPY ../Projeto_Rick_1/temple-of-rock/backend ./
 
 # Exponha a porta que o servidor irá usar
 EXPOSE 9090
