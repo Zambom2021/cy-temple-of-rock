@@ -28,7 +28,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm start # Inicia o servidor
+          start: npm start --prefix backend # Especifica que o npm start deve ser executado no diretório backend
           wait-on: 'http://localhost:9090' # A URL do seu servidor
           wait-on-timeout: 60 # Tempo máximo para aguardar a conexão
 
