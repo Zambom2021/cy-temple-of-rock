@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "cy:open": "cypress open",
-    "test": "cypress run",
-    "start": "node server.js"
+    "test": "cypress run"
   },
   "keywords": [
     "Testing",
