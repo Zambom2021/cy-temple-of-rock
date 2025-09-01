@@ -55,7 +55,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: test
+        # working-directory: test
 
       # - name: Checkout test repo again
       #   uses: actions/checkout@v4
