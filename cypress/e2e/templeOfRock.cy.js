@@ -62,7 +62,7 @@ describe('Temple Of Rock', () => {
         cy.registerBand(fakeBand)
     })
 
-    it.only('Faz a Edição dos dados de uma Banda já Cadastrada e Inclui novos Discos', () => {
+    it('Faz a Edição dos dados de uma Banda já Cadastrada e Inclui novos Discos', () => {
         cy.login()
         const updates = {
             genre: getRandomGenre(),
