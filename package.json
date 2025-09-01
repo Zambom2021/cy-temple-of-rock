@@ -7,7 +7,8 @@
     "test": "cypress run",
     "allure:generate": "node_modules\\.bin\\allure generate \"allure-results\" --clean -o \"allure-report\"",
     "allure:open": "node_modules\\.bin\\allure open \"allure-report\"",
-    "allure:report": "npm run allure:generate && npm run allure:open"
+    "allure:report": "npm run allure:generate && npm run allure:open",
+    "test:cloud": "cypress run --record"
   },
   "keywords": [
     "Testing",
