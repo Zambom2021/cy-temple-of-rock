@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: temple-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: temple-of-rock
+    volumes:
+      - /data/db
+
+  backend:
+    build:
+      context: ../temple-of-rock
+      dockerfile: Dockerfile
+    container_name: temple-backend
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/temple-of-rock
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/web/"]
+      interval: 5s
+      retries: 20
+      timeout: 5s
+
+  cypress-tests:
+    image: cypress/included:13.17.0
+    container_name: temple-cypress
+    depends_on:
+      backend:
+        condition: service_healthy
+    working_dir: /e2e
+    volumes:
+      - ./cypress:/e2e/cypress
+      - ./cypress.config.js:/e2e/cypress.config.js
+      - ./package.json:/e2e/package.json
+      - ./package-lock.json:/e2e/package-lock.json
+      - ./allure-results:/e2e/allure-results
+      - ./allure-report:/e2e/allure-report
+    command: sh -c "npm ci && npx cypress run --reporter @shelex/cypress-allure-plugin"
