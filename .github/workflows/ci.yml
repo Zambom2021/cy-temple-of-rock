@@ -57,14 +57,19 @@ jobs:
         run: npm install
 
       # -------------------------
-      # Run Cypress tests (headless)
+      # Run Cypress tests (headless) + generate Allure report
       # -------------------------
       - name: Run Cypress tests
         run: |
+          # roda os testes headless
           npx cypress run --env allure=true
-          # Gera o relatório Allure em HTML
-          npx allure generate allure-results --clean -o allure-report
-
+      
+      # -------------------------
+      # Generate Allure HTML report
+      # -------------------------
+      - name: Generate Allure Report
+        run: npx allure generate allure-results --clean -o allure-report
+      
       # -------------------------
       # Upload artifacts (screenshots, videos, allure)
       # -------------------------
@@ -76,8 +81,7 @@ jobs:
             cypress/screenshots
             cypress/videos
             allure-report
-            allure-results
-
+        
       # -------------------------
       # Docker Compose down
       # -------------------------
