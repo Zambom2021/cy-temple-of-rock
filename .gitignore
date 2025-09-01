@@ -6,3 +6,4 @@ cypress/videos/
 node_modules/
 oldTest.js
 ci.iml.allure.yml
+allure-results/
