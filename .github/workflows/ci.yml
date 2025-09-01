@@ -56,31 +56,40 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # -------------------------
-      # Run Cypress tests (headless) + generate Allure report
-      # -------------------------
-      - name: Run Cypress tests
-        run: |
-          # roda os testes headless
-          npx cypress run --env allure=true
-      
-      # -------------------------
-      # Generate Allure HTML report
-      # -------------------------
-      - name: Generate Allure Report
-        run: npx allure generate allure-results --clean -o allure-report
-      
-      # -------------------------
-      # Upload artifacts (screenshots, videos, allure)
-      # -------------------------
-      - name: Upload Cypress Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
-          name: cypress-artifacts
-          path: |
-            cypress/screenshots
-            cypress/videos
-            allure-report
+          command: npm run test:cloud
+
+      # # -------------------------
+      # # Run Cypress tests (headless) + generate Allure report
+      # # -------------------------
+      # - name: Run Cypress tests
+      #   run: |
+      #     # roda os testes headless
+      #     npx cypress run --env allure=true
+      
+      # # -------------------------
+      # # Generate Allure HTML report
+      # # -------------------------
+      # - name: Generate Allure Report
+      #   run: npx allure generate allure-results --clean -o allure-report
+      
+      # # -------------------------
+      # # Upload artifacts (screenshots, videos, allure)
+      # # -------------------------
+      # - name: Upload Cypress Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: cypress-artifacts
+      #     path: |
+      #       cypress/screenshots
+      #       cypress/videos
+      #       allure-report
         
       # -------------------------
       # Docker Compose down

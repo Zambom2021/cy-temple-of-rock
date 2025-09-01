@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
+  projectId: 'wizhg6',
   e2e: {
     baseUrl: "http://localhost:9090/",
     setupNodeEvents(on, config) {
