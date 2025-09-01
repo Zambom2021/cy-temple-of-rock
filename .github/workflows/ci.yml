@@ -55,14 +55,19 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: test
 
-      - name: Checkout
+      - name: Checkout test repo again
         uses: actions/checkout@v4
+        with:
+          path: test
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
+          working-directory: test
           command: npm run test:cloud
 
       # # -------------------------
@@ -96,6 +101,4 @@ jobs:
       # -------------------------
       - name: Docker Compose down
         if: always()
-        run: |
-          cd app
-          docker compose down -v
+        run: docker compose -f app/docker-compose.yml down -v
