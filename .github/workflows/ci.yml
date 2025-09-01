@@ -57,10 +57,10 @@ jobs:
         run: npm install
         working-directory: test
 
-      - name: Checkout test repo again
-        uses: actions/checkout@v4
-        with:
-          path: test
+      # - name: Checkout test repo again
+      #   uses: actions/checkout@v4
+      #   with:
+      #     path: test
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
