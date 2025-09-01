@@ -62,7 +62,7 @@ describe('Temple Of Rock', () => {
         cy.registerBand(fakeBand)
     })
 
-    it('Faz a Edição dos dados de uma Banda já Cadastrada e Inclui novos Discos', () => {
+    it.only('Faz a Edição dos dados de uma Banda já Cadastrada e Inclui novos Discos', () => {
         cy.login()
         const updates = {
             genre: getRandomGenre(),
@@ -70,7 +70,7 @@ describe('Temple Of Rock', () => {
             country: faker.location.country()
         }
         const newDiscs = generateFakeDiscography(1990,2)
-        cy.editBand('Iron Best', updates, newDiscs)
+        cy.editBand('Iron Best Metal', updates, newDiscs)
     })
 
     it('Inclui Discos para uma Banda', () => {
@@ -87,6 +87,6 @@ describe('Temple Of Rock', () => {
             country: faker.location.country()
         }
         const newDiscs = generateFakeDiscography(1990,2)
-        cy.editBandCancel('Iron Best', updates, newDiscs)
+        cy.editBandCancel('Iron Best Metal', updates, newDiscs)
     })
 })
