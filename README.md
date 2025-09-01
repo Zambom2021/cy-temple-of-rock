@@ -43,7 +43,7 @@ Este projeto está integrado ao Cypress Cloud, permitindo:
 - 🔄 Integração contínua com GitHub Actions.
 
 ### Execução na nuvem:
-- npm run test:cloud
+- `npm run test:cloud`
 
 
 ### 🤖 Integração com GitHub Actions
