@@ -67,7 +67,7 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
-          working-directory: test
+          # working-directory: test
           command: npm run test:cloud
 
       # # -------------------------
