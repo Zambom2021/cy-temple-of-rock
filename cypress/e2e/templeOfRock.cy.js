@@ -12,14 +12,14 @@ describe('Temple Of Rock', () => {
         cy.title().should('be.equal', 'Temple Of Rock')
     })
 
-    const letrasParaTestar = ['b', 'u', 'd', 'i']
+    const letrasParaTestar = ['d', 'i', 'l', 'u']
     letrasParaTestar.forEach(letra => {
         it(`Consulta Lista de Bandas pela Letra "${letra}"`, () => {   
             cy.searchBandByLetter(letra)
         })
     })
 
-    const bandasParaTestar = ['Ultimate Onto', 'Best Of Name', 'Deep Spring']
+    const bandasParaTestar = ['Metal Factor', 'Ultimate School', 'Dr. Doom']
     bandasParaTestar.forEach(banda => {
         it(`Consulta de Banda pelo Nome: ${banda}`, () => {
             cy.searchBandByName(banda)
@@ -70,13 +70,13 @@ describe('Temple Of Rock', () => {
             country: faker.location.country()
         }
         const newDiscs = generateFakeDiscography(1990,2)
-        cy.editBand('Iron Best Metal', updates, newDiscs)
+        cy.editBand('Iron Show', updates, newDiscs)
     })
 
     it('Inclui Discos para uma Banda', () => {
         cy.login()
         const newDiscs = generateFakeDiscography(2000,1)
-        cy.addDiscsToBand('Last Detail', newDiscs)
+        cy.addDiscsToBand('The Prevent', newDiscs)
     })
 
     it('Desiste de fazer a Edição dos dados de uma Banda já Cadastrada', () => {
@@ -87,6 +87,6 @@ describe('Temple Of Rock', () => {
             country: faker.location.country()
         }
         const newDiscs = generateFakeDiscography(1990,2)
-        cy.editBandCancel('Iron Best Metal', updates, newDiscs)
+        cy.editBandCancel('Iron Daughter', updates, newDiscs)
     })
 })
