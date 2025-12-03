@@ -50,7 +50,7 @@ jobs:
         env: 
           BASE_URL: ${{ github.event.inputs.base_url }}
         with:
-          start: npm start
+          start: npm test
           browser: ${{ github.event.inputs.browser }}
       
       - name: Upload Screenshots
