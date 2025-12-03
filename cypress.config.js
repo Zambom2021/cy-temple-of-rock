@@ -14,10 +14,10 @@ module.exports = defineConfig({
       allureWriter(on, config);
 
       // se quiser manter o Mochawesome também
-      require('cypress-mochawesome-reporter/plugin')(on);
+      // require('cypress-mochawesome-reporter/plugin')(on);
 
       return config;
     },
   },
-  reporter: 'cypress-mochawesome-reporter', // opcional
+  // reporter: 'cypress-mochawesome-reporter', // opcional
 });
