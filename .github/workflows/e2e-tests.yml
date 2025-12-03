@@ -67,6 +67,3 @@ jobs:
           name: cypress-videos-${{ github.event.inputs.browser }}
           path: cypress/videos
     
-      - name: Docker Compose down
-        if: always()
-        run: docker compose -f app/docker-compose.yml down -v
