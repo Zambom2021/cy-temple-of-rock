@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout test repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout app repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: Zambom2021/temple-of-rock
           token: ${{ secrets.TEMPLE_TOKEN }}
@@ -44,14 +44,14 @@ jobs:
             echo "Waiting 3s..."
             sleep 3
           done
+          
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Install dependencies
         run: npm install
-
 
       - name: Checkout
         uses: actions/checkout@v4
