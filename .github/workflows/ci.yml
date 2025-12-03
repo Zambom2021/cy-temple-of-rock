@@ -6,15 +6,22 @@ on:
   pull_request:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Escolha o navegador de sua preferência'
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+          - edge
 
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
-      # -------------------------
-      # Checkout repositórios
-      # -------------------------
       - name: Checkout test repo
         uses: actions/checkout@v3
 
@@ -25,15 +32,11 @@ jobs:
           token: ${{ secrets.TEMPLE_TOKEN }}
           path: app
 
-      # -------------------------
-      # Docker Buildx
-      # -------------------------
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # -------------------------
-      # Subir containers da aplicação
-      # -------------------------
+
       - name: Start app with Docker Compose
         run: |
           cd app
@@ -45,9 +48,6 @@ jobs:
             sleep 3
           done
 
-      # -------------------------
-      # Node.js + Cypress
-      # -------------------------
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -56,19 +56,28 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # # -------------------------
-      # # Run Cypress tests 
-      # # -------------------------
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           command: npm run test:cloud
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-screenshots-${{ github.event.inputs.browser }}
+          path: cypress/screenshots
+
+      - name: Upload Videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos-${{ github.event.inputs.browser }}
+          path: cypress/videos
         
-      # -------------------------
-      # Docker Compose down
-      # -------------------------
+
       - name: Docker Compose down
         if: always()
         run: docker compose -f app/docker-compose.yml down -v
