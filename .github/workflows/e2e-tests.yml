@@ -3,6 +3,10 @@ name: E2E Tests
 on: 
   workflow_dispatch: 
     inputs:
+      base_url:
+        description: 'Escolha o ambiente de sua preferencia(local, homolog, production)'
+        required: true
+        default: 'http://localhost:9090'
       browser:
         description: 'Escolha o navegador de sua preferência'
         required: true
@@ -67,6 +71,4 @@ jobs:
           name: cypress-videos-${{ github.event.inputs.browser }}
           path: cypress/videos
     
-      - name: Docker Compose down
-        if: always()
-        run: docker compose -f app/docker-compose.yml down -v
+
