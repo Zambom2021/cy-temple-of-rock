@@ -70,7 +70,7 @@ describe('Temple Of Rock', () => {
             country: faker.location.country()
         }
         const newDiscs = generateFakeDiscography(1990,2)
-        cy.editBand('Iron Show', updates, newDiscs)
+        cy.editBand('Iron Window', updates, newDiscs)
     })
 
     it('Inclui Discos para uma Banda', () => {

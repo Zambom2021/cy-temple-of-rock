@@ -58,6 +58,31 @@ Cypress.Commands.add('searchBandByName', (banda) => {
         cy.get('#searchByNameBtn').click()
         cy.url().should('include', `bandDetails.html?id=${bandId}`)
         cy.get('#bandDetails').should('exist')
+
+        // Validar elementos
+        cy.get('#bandName').should('have.text', response.body.name)
+        cy.get('#bandGenre').should('have.text', response.body.genre)
+        cy.get('#bandCountry').should('have.text', response.body.country)
+        cy.get('#formationYear').should('have.text', response.body.formationYear.toString())
+
+        // Validar membros
+        cy.get('#bandMembers')
+            .invoke('text')
+            .then(text => {
+                const expectedMembers = response.body.members.join(', ')
+                expect(text.trim()).to.eq(expectedMembers)
+            })
+
+        // Validar discografia
+        cy.get('#discographyList .discography-item').should('have.length', response.body.discography.length)
+
+        response.body.discography.forEach((disc, index) => {
+            cy.get('#discographyList .discography-item')
+                .eq(index)
+                .should('contain.text', disc.title)
+                .and('contain.text', disc.releaseYear)
+        })
+
     })
 })
 
